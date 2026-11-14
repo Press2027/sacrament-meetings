@@ -1,10 +1,8 @@
-
-import { connection } from 'next/server';
+﻿import { connection } from 'next/server';
 import { getMeetings } from '@/lib/meetings-db';
 import { redirect } from 'next/navigation';
 
 export default async function CurrentMeetingPage() {
-  // Calculate the date at request time.
   await connection();
 
   const today = new Date();
@@ -19,7 +17,7 @@ export default async function CurrentMeetingPage() {
 
   const sundayDate = `${year}-${month}-${day}`;
 
-  const meetings = getMeetings(sundayDate);
+  const meetings = await getMeetings('', 1, sundayDate);
 
   if (meetings.length === 0) {
     redirect('/meetings');
@@ -27,3 +25,4 @@ export default async function CurrentMeetingPage() {
 
   redirect(`/meetings/${meetings[0].id}`);
 }
+

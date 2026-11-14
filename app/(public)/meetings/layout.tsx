@@ -1,11 +1,8 @@
-
-import Link from 'next/link';
+﻿import Link from 'next/link';
 
 export default function MeetingsLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <section className="mx-auto min-h-screen max-w-7xl px-6 py-8">
       <nav
@@ -18,7 +15,6 @@ export default function MeetingsLayout({
         >
           All Meetings
         </Link>
-
         <Link
           href="/meetings/current"
           className="font-medium text-blue-800 hover:text-blue-600"
@@ -26,7 +22,6 @@ export default function MeetingsLayout({
           Current Sunday
         </Link>
       </nav>
-
       {children}
     </section>
   );

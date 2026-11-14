@@ -1,6 +1,5 @@
-
-import MeetingDetail from '@/components/MeetingDetail';
-import type { SacramentMeeting } from '@/lib/types';
+﻿import MeetingDetail from '@/components/MeetingDetail';
+import { getMeetingById } from '@/lib/meetings-db';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -16,23 +15,11 @@ export default async function MeetingPage({ params }: MeetingPageProps) {
     notFound();
   }
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const meeting = await getMeetingById(meetingId);
 
-  const response = await fetch(
-    `${baseUrl}/api/meetings/${meetingId}`,
-    { cache: 'no-store' }
-  );
-
-  if (response.status === 404) {
+  if (!meeting) {
     notFound();
   }
-
-  if (!response.ok) {
-    throw new Error('Failed to retrieve meeting details.');
-  }
-
-  const meeting: SacramentMeeting = await response.json();
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-8">
@@ -40,7 +27,7 @@ export default async function MeetingPage({ params }: MeetingPageProps) {
         href="/meetings"
         className="inline-block text-blue-700 hover:underline"
       >
-        ← Back to Meetings
+        ← Back to meetings
       </Link>
 
       <MeetingDetail meeting={meeting} />
