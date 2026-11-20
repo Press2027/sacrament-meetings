@@ -17,7 +17,7 @@ export default function Header() {
           </div>
 
           <div className="text-sm text-blue-100">
-            <p className="font-medium">Your Ward</p>
+            <p className="font-medium">Juba Branch</p>
             <p className="text-blue-200">
               Meeting planning and coordination
             </p>
@@ -38,3 +38,4 @@ export default function Header() {
     </>
   );
 }
+

@@ -1,4 +1,5 @@
 ﻿import { Suspense } from 'react';
+import Link from 'next/link';
 import MeetingCard from '@/components/MeetingCard';
 import MeetingSearch from '@/components/MeetingSearch';
 import Pagination from '@/components/Pagination';
@@ -34,14 +35,23 @@ export default async function MeetingsPage({
 
   return (
     <div className="space-y-8">
-      <header>
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
         <h1 className="text-3xl font-bold text-gray-900">
           Sacrament Meetings
         </h1>
         <p className="mt-2 text-gray-600">
           View and organize your ward sacrament meetings.
         </p>
-      </header>
+      </div>
+
+      <Link
+        href="/meetings/new"
+        className="inline-flex items-center justify-center rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white transition hover:bg-blue-800"
+      >
+        + Create Meeting
+      </Link>
+</header>
 
       <Suspense
         fallback={

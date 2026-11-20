@@ -1,4 +1,5 @@
-﻿import MeetingDetail from '@/components/MeetingDetail';
+import { Suspense } from 'react';
+import MeetingDetail from '@/components/MeetingDetail';
 import { getMeetingById } from '@/lib/meetings-db';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -7,7 +8,7 @@ interface MeetingPageProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function MeetingPage({ params }: MeetingPageProps) {
+async function MeetingContent({ params }: MeetingPageProps) {
   const { id } = await params;
   const meetingId = Number(id);
 
@@ -27,10 +28,24 @@ export default async function MeetingPage({ params }: MeetingPageProps) {
         href="/meetings"
         className="inline-block text-blue-700 hover:underline"
       >
-        ← Back to meetings
+        ? Back to meetings
       </Link>
 
       <MeetingDetail meeting={meeting} />
     </div>
+  );
+}
+
+export default function MeetingPage({ params }: MeetingPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-4xl p-8" role="status">
+          Loading meeting details...
+        </div>
+      }
+    >
+      <MeetingContent params={params} />
+    </Suspense>
   );
 }

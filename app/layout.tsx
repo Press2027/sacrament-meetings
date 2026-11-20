@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${geist.variable} antialiased flex min-h-screen flex-col`}>
         <Header />
         <main className="flex-1">{children}</main>
@@ -30,3 +30,4 @@ export default function RootLayout({
     </html>
   );
 }
+
