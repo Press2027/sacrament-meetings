@@ -4,6 +4,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { requireBishopric } from '@/lib/auth-guard';
 import {
   addMeeting,
   updateMeeting as updateMeetingInDatabase,
@@ -143,6 +144,7 @@ export async function createMeeting(
   _prevState: MeetingFormState,
   formData: FormData
 ): Promise<MeetingFormState> {
+  await requireBishopric();
   const result = parseMeetingForm(formData);
 
   if (!result.success) {
@@ -173,6 +175,7 @@ export async function updateMeeting(
   _prevState: MeetingFormState,
   formData: FormData
 ): Promise<MeetingFormState> {
+  await requireBishopric();
   const result = parseMeetingForm(formData);
 
   if (!result.success) {
@@ -206,6 +209,7 @@ export async function deleteMeeting(
   id: number,
   _formData: FormData
 ): Promise<void> {
+  await requireBishopric();
       void _formData;
   try {
     const deleted = await deleteMeetingFromDatabase(id);
